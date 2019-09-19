@@ -9,16 +9,45 @@ import {
   Alert,
   StyleSheet,
   Dimensions,
+  Animated,
   TouchableWithoutFeedback
 } from "react-native";
 
 import Icon from "react-native-vector-icons/FontAwesome";
 
 export default class User extends Component {
+  state = {
+    opacity: new Animated.Value(0),
+    offset: new Animated.ValueXY({x: 0, y: 50}),
+  }
+
+  componentDidMount() {
+    Animated.parallel([
+    Animated.spring(this.state.offset.y, {
+      toValue: 0,
+      speed: 5, 
+      bounciness: 20,
+    }),
+    Animated.timing(this.state.opacity, {
+      toValue: 1,
+      duration: 500,
+    }) 
+  ]).start();
+  }
+
   render() {
     const { user } = this.props;
 
     return (
+       <Animated.View style={[
+         {
+           transform: [
+             {translateY: this.state.offset.y},
+           ]
+         },
+         {opacity: this.state.opacity},
+       ]}
+
       <TouchableWithoutFeedback onPress={this.props.onPress}>
         <View style={styles.userContainer}>
           <Image style={styles.thumbnail} source={{ uri: user.thumbnail }} />
