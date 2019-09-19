@@ -42,7 +42,7 @@ export default class User extends Component {
        <Animated.View style={[
          {
            transform: [
-             {translateY: this.state.offset.y},
+              ...this.state.offset.getTranslateTransform(),
            ]
          },
          {opacity: this.state.opacity},
