@@ -46,8 +46,7 @@ export default class User extends Component {
            ]
          },
          {opacity: this.state.opacity},
-       ]}
-
+       ]}>
       <TouchableWithoutFeedback onPress={this.props.onPress}>
         <View style={styles.userContainer}>
           <Image style={styles.thumbnail} source={{ uri: user.thumbnail }} />
@@ -64,6 +63,7 @@ export default class User extends Component {
           </View>
         </View>
       </TouchableWithoutFeedback>
+      </Animated.View>
     );
   }
 }
